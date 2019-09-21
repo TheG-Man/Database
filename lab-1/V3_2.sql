@@ -1,7 +1,7 @@
 -- Task 1
 
 SELECT [DepartmentID], [Name] FROM [AdventureWorks2012].[HumanResources].[Department]
-WHERE LEFT(Name, 1) = 'P'
+WHERE Name LIKE 'P%'
 
 -- Task 2
 
