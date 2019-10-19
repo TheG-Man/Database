@@ -10,7 +10,8 @@ FROM [HumanResources].[EmployeeDepartmentHistory]
 JOIN [HumanResources].[Employee]
     ON [EmployeeDepartmentHistory].[BusinessEntityID] = [Employee].[BusinessEntityID]
 JOIN [HumanResources].[Department]
-    ON [EmployeeDepartmentHistory].[DepartmentID] = [Department].[DepartmentID];
+    ON [EmployeeDepartmentHistory].[DepartmentID] = [Department].[DepartmentID]
+WHERE [EndDate] IS NULL;
 GO
 
 -- Вывести на экран количество сотрудников в каждом отделе
@@ -24,6 +25,7 @@ JOIN [HumanResources].[EmployeeDepartmentHistory]
     ON [Department].[DepartmentID] = [EmployeeDepartmentHistory].[DepartmentID]
 JOIN [HumanResources].[Employee]
     ON [EmployeeDepartmentHistory].[BusinessEntityID] = [HumanResources].[Employee].[BusinessEntityID]
+WHERE [EndDate] IS NULL
 GROUP BY [Department].[DepartmentID], [Name];
 GO
 
