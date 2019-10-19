@@ -15,16 +15,16 @@ GO
 */
 
 CREATE TABLE [dbo].[#Address] (
-	[AddressID] INT NOT NULL,
+    [AddressID] INT NOT NULL,
     [AddressLine1] NVARCHAR(60) NOT NULL,
     [AddressLine2] NVARCHAR(60) NULL,
     [City] NVARCHAR(30) NOT NULL,
     [StateProvinceID] INT NOT NULL,
     [PostalCode] NVARCHAR(15) NOT NULL,
     [ModifiedDate] DATETIME NOT NULL,
-	[CountryRegionCode] NVARCHAR(3),
-	[TaxRate] SMALLMONEY,
-	PRIMARY KEY CLUSTERED ([AddressID])
+    [CountryRegionCode] NVARCHAR(3),
+    [TaxRate] SMALLMONEY,
+    PRIMARY KEY CLUSTERED ([AddressID])
 );
 
 /*
@@ -42,45 +42,45 @@ SELECT
     [Address].[StateProvinceID],
     [PostalCode],
     [Address].[ModifiedDate],
-	[StateProvince].[CountryRegionCode],
-	[SalesTaxRate].[TaxRate]
+    [StateProvince].[CountryRegionCode],
+    [SalesTaxRate].[TaxRate]
 FROM [dbo].[Address]
 JOIN [Person].[StateProvince] 
-	ON [dbo].[Address].[StateProvinceID] = [StateProvince].[StateProvinceID]
+    ON [dbo].[Address].[StateProvinceID] = [StateProvince].[StateProvinceID]
 JOIN [Sales].[SalesTaxRate]
-	ON [dbo].[Address].[StateProvinceID] = [SalesTaxRate].[StateProvinceID]
+    ON [dbo].[Address].[StateProvinceID] = [SalesTaxRate].[StateProvinceID]
 GROUP BY 
-	[AddressID],
+    [AddressID],
     [AddressLine1],
     [AddressLine2],
     [City],
     [Address].[StateProvinceID],
     [PostalCode],
     [Address].[ModifiedDate],
-	[StateProvince].[CountryRegionCode],
-	[SalesTaxRate].[TaxRate]
+    [StateProvince].[CountryRegionCode],
+    [SalesTaxRate].[TaxRate]
 HAVING [SalesTaxRate].[TaxRate] > 5)
 
 INSERT INTO [dbo].[#Address] (
-	[AddressID],
+    [AddressID],
     [AddressLine1],
     [AddressLine2],
     [City],
     [StateProvinceID],
     [PostalCode],
     [ModifiedDate],
-	[CountryRegionCode],
-	[TaxRate]
+    [CountryRegionCode],
+    [TaxRate]
 ) SELECT
-	[AddressID],
+    [AddressID],
     [AddressLine1],
     [AddressLine2],
     [City],
     [StateProvinceID],
     [PostalCode],
     [ModifiedDate],
-	[CountryRegionCode],
-	[TaxRate]
+    [CountryRegionCode],
+    [TaxRate]
 FROM [EMP];
 
 SELECT * FROM [dbo].[#Address] ORDER BY [StateProvinceID];
@@ -102,27 +102,27 @@ MERGE INTO [dbo].[Address] AS [target]
 USING [dbo].[#Address] AS [source]
 ON [target].[AddressID] = [source].[AddressID]
 WHEN MATCHED THEN UPDATE SET 
-	[CountryRegionCode] = [source].[CountryRegionCode],
-	[TaxRate] = [source].[TaxRate]
-WHEN NOT MATCHED BY TARGET THEN	INSERT (
-	[AddressID],
+    [CountryRegionCode] = [source].[CountryRegionCode],
+    [TaxRate] = [source].[TaxRate]
+WHEN NOT MATCHED BY TARGET THEN    INSERT (
+    [AddressID],
     [AddressLine1],
     [AddressLine2],
     [City],
     [StateProvinceID],
     [PostalCode],
     [ModifiedDate],
-	[CountryRegionCode],
-	[TaxRate])
+    [CountryRegionCode],
+    [TaxRate])
 VALUES(
-	[source].[AddressID],
-	[source].[AddressLine1],
-	[source].[AddressLine2],
-	[source].[City],
-	[source].[StateProvinceID],
-	[source].[PostalCode],
-	[source].[ModifiedDate],
-	[source].[CountryRegionCode],
-	[source].[TaxRate])
+    [source].[AddressID],
+    [source].[AddressLine1],
+    [source].[AddressLine2],
+    [source].[City],
+    [source].[StateProvinceID],
+    [source].[PostalCode],
+    [source].[ModifiedDate],
+    [source].[CountryRegionCode],
+    [source].[TaxRate])
 WHEN NOT MATCHED BY SOURCE THEN DELETE;
 GO
