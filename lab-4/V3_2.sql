@@ -135,9 +135,9 @@ INSERT INTO [Production].[WorkOrderWithScrapReasonView] (
     [EndDate],
     [DueDate],
     [ModifiedDate],
-	[ScrapReasonName],
+    [ScrapReasonName],
     [ScrapReasonModifiedDate],
-	[ProductName])
+    [ProductName])
 VALUES (
     13,
     11,
@@ -145,17 +145,17 @@ VALUES (
     '2030-07-04 00:00:00.000',
     '2030-07-04 00:00:00.000',
     GetDate(),
-	'Scrap reason name',
-	GetDate(),
-	'Adjustable Race'
+    'Scrap reason name',
+    GetDate(),
+    'Adjustable Race'
     );
 
 UPDATE [Production].[WorkOrderWithScrapReasonView] SET
     [StartDate] = '2031-07-04 00:00:00.000',
     [EndDate] = '2031-07-04 00:00:00.000',
     [DueDate] = '2031-07-04 00:00:00.000',
-	[ModifiedDate] = GetDate(),
-	[ScrapReasonName] = 'New scrap reason name',
+    [ModifiedDate] = GetDate(),
+    [ScrapReasonName] = 'New scrap reason name',
     [ScrapReasonModifiedDate] = GetDate()
 WHERE [ScrapReasonName] = 'Scrap reason name';
 
