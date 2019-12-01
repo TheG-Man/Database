@@ -42,3 +42,10 @@ SELECT
 FROM
     @xml.nodes('/Persons/Person') AS xml(node);
 GO
+
+SELECT
+    [BusinessEntityID],
+    [FirstName],
+    [LastName]
+FROM #Person;
+GO
